@@ -1,0 +1,62 @@
+import java.util.*;
+
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        if (intervals.length <= 1) return intervals;
+        
+       
+        intervals = msort(intervals, 0, intervals.length - 1);
+
+       
+        List<int[]> mergedList = new ArrayList<>();
+        int[] currentInterval = intervals[0];
+        mergedList.add(currentInterval);
+
+        for (int[] nextInterval : intervals) {
+            int currentEnd = currentInterval[1];
+            int nextStart = nextInterval[0];
+            int nextEnd = nextInterval[1];
+
+            if (currentEnd >= nextStart) {
+                currentInterval[1] = Math.max(currentEnd, nextEnd);
+            } else { 
+                currentInterval = nextInterval;
+                mergedList.add(currentInterval);
+            }
+        }
+
+        return mergedList.toArray(new int[mergedList.size()][]);
+    }
+
+    public int[][] msort(int[][] intervals, int st, int en) {
+        if (st < en) {
+            int mid = st + (en - st) / 2;
+            msort(intervals, st, mid);
+            msort(intervals, mid + 1, en);
+            mrg(intervals, st, mid, en);
+        }
+        return intervals;
+    }
+
+    public void mrg(int[][] intervals, int st, int mid, int en) {
+        int[][] temp = new int[en - st + 1][2];
+        int i = st, j = mid + 1, k = 0;
+
+        while (i <= mid && j <= en) {
+           
+            if (intervals[i][0] <= intervals[j][0]) {
+                temp[k++] = intervals[i++];
+            } else {
+                temp[k++] = intervals[j++];
+            }
+        }
+
+        while (i <= mid) temp[k++] = intervals[i++];
+        while (j <= en) temp[k++] = intervals[j++];
+
+        
+        for (int p = 0; p < temp.length; p++) {
+            intervals[st + p] = temp[p];
+        }
+    }
+}
