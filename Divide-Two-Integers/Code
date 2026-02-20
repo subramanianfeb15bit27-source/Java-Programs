@@ -1,0 +1,15 @@
+class Solution {
+    public int[] sortArray(int[] nums) {
+        int j,key,size=nums.length;
+        for(int i=1; i<size; i++){
+            key=nums[i];
+            j=i-1;
+            while(j>=0 && key<nums[j]){
+                nums[j+1]=nums[j];
+                j--;
+            }
+            nums[j+1]=key;
+        }
+        return nums;
+    }
+}
