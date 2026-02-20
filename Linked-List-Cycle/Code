@@ -1,0 +1,29 @@
+
+/*
+  class ListNode {
+      int val;
+      ListNode next;
+      ListNode(int x) {
+          val = x;
+          next = null;
+      }
+  }
+ */
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        ListNode fpt, spt;
+        fpt=spt=head;
+        while((fpt != null && spt.next != null))
+        {
+            if(fpt.next == null)
+                return false;
+            fpt=fpt.next.next;
+            spt=spt.next;
+            if(fpt == spt)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+}
