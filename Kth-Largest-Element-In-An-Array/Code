@@ -1,0 +1,60 @@
+import java.util.Arrays;
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        msort(nums, 0, nums.length-1);
+        return nums[k-1];
+    }
+    public void msort(int[] nums, int st, int en){
+        int[] arr=new int[en-st+1];
+
+        if(st<en){
+            int mid=(st+en)/2;
+
+            msort(nums, st, mid);
+            msort(nums, mid+1, en);
+
+            merge(nums, st, mid, en);
+        }
+
+    }
+
+    public void merge(int[] nums, int st, int mid, int en){
+        int i=st, j=mid+1, k=0;
+        int[] arr=new int[en-st+1];
+        
+        while(i<=mid && j<=en){
+            if(nums[i]>nums[j]){
+                arr[k]=nums[i];
+                i++;
+                k++;
+            }
+            else{
+                arr[k]=nums[j];
+                j++;
+                k++;
+            }
+        }
+
+        if(i>mid){
+            while(j<=en){
+                arr[k]=nums[j];
+                j++;
+                k++;
+            }
+        }
+        else{
+            while(i<=mid){
+                arr[k]=nums[i];
+                i++;
+                k++;
+            }
+        }
+
+        k=0;
+        for(int l=st; l<=en; l++){
+            nums[l]=arr[k];
+            k++;
+        }
+    }
+
+}
