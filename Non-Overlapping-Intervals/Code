@@ -1,0 +1,62 @@
+import java.util.Arrays;
+class Solution {
+    public int eraseOverlapIntervals(int[][] num) {
+        qsort(num, 0, num.length-1);
+        System.out.println(Arrays.deepToString(num));
+        int count=0, i=0,j=1;
+        while(j<num.length && i<num.length){
+            while(j<num.length && num[i][1]>num[j][0]){
+                count++;
+                j++; 
+            }
+            i=j;
+            j++;
+
+        }
+        
+        return count;
+    }
+
+    public void qsort(int[][] num, int lb, int ub){
+        int part;
+
+        if(lb<ub){
+            part=partition(num, lb, ub);
+
+            qsort(num, lb, part-1);
+            qsort(num, part+1, ub);
+        }
+    }
+
+    public int partition(int[][] num, int lb, int ub){
+        int st=lb, en=ub, pi=lb;
+        
+        while(st<en){
+            while(st<=ub && num[st][1]<=num[pi][1]){ 
+                st++;                                
+            }
+            while(en>=lb && num[en][1]>num[pi][1]){
+                en--;
+            }
+            if(st<en){              
+                swap(num, st, en); 
+            }                      
+        }                         
+        
+        swap(num, pi, en);
+      
+        return en;
+    }
+
+    public void swap(int[][] num, int n1, int n2){
+        int temp;
+
+        temp=num[n1][0];    
+        num[n1][0]=num[n2][0];  
+        num[n2][0]=temp;
+
+        temp=num[n1][1];
+        num[n1][1]=num[n2][1];
+        num[n2][1]=temp;
+    }
+}
