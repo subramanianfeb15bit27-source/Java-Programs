@@ -1,0 +1,34 @@
+class Solution {
+    static String[] interestingPattern(int N) {
+        String pele="";
+        String[] patt=new String[(N*2)-1];
+        for(int i=N;i>0;i--){
+            for(int j=0;j<N-i;j++){
+                pele=pele+String.valueOf(N-j);
+            }
+            for(int j=1+(N-i);j<(N*2)-(N-i);j++){
+                pele=pele+String.valueOf(i);
+            }
+            for(int j=i+1;j<=N;j++){
+                
+                pele=pele+String.valueOf(j);
+            }
+            patt[N-i]=pele;
+            pele="";
+        }
+        for(int i=2;i<=N;i++){
+            for(int j=N;j>i;j--){
+                pele=pele+String.valueOf(j);
+            }
+            for(int j=N-i;j<(N*2)-(N-i+1);j++){
+                pele=pele+String.valueOf(i);
+            }
+            for(int j=i+1;j<=N;j++){
+                pele=pele+String.valueOf(j);
+            }
+            patt[N+i-2]=pele;
+            pele="";
+        }
+        return patt;
+    }
+}
