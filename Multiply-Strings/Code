@@ -1,0 +1,26 @@
+class Solution {
+    public String multiply(String num1, String num2) {
+        if(num1.equals("0") || num2.equals("0")) return "0";
+        int n1=num1.length(), n2=num2.length();
+        int sum=0, mul=0;
+        int[] res=new int[n1+n2];
+
+        for(int i=n1-1; i>=0; i--){
+            for(int j=n2-1; j>=0; j--){
+                mul=(num1.charAt(i)-'0')*(num2.charAt(j)-'0');
+                sum=res[i+j+1]+mul;
+                
+                res[i+j+1]=sum%10;
+                res[i+j]+=sum/10;
+            }
+        }
+        StringBuilder s=new StringBuilder();
+        for(int i=0; i<res.length; i++){
+            if(i==0 && res[i]==0){
+                continue;
+            }
+            s.append(res[i]);
+        }
+        return new String(s);
+    }
+}
