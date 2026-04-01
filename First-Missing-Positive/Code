@@ -1,0 +1,42 @@
+/*class Solution {
+    public int firstMissingPositive(int[] nums) {
+        HashSet<Integer> hs = new HashSet<>();
+
+        for(int i = 0;i <nums.length;i++){
+            hs.add(nums[i]);
+        }
+        for(int i = 1;i < Integer.MAX_VALUE;i++){
+            if(!hs.contains(i)){
+                return i;
+            }
+        }
+        return 0;
+    }
+}*/
+
+class Solution {
+    public int firstMissingPositive(int[] nums) {
+        
+        for(int i=nums.length-1;i>=0;i--){
+            while (nums[i] > 0 && nums[i] <= nums.length) {
+                int correct = nums[i] - 1;
+
+                if (nums[i] == nums[correct]) break;
+
+                swap(i, correct, nums);
+            }
+        }
+        System.out.println(Arrays.toString(nums));
+        for(int j=0;j<nums.length;j++){
+            if(nums[j]!=(j+1)){
+                return j+1;
+            }
+        }
+        return nums.length+1;
+    }
+    public void swap(int i, int j, int[] arr){
+        int temp=arr[i];
+        arr[i]=arr[j];
+        arr[j]=temp;
+    }
+}
