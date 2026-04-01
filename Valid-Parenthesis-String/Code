@@ -1,0 +1,36 @@
+class Solution {
+    char op='(', cl=')', st='*';
+    int i=0, head=-1;
+    boolean flag=true;    
+    public boolean checkValidString(String s) {
+
+        char[] stk= new char[s.length()];
+        while(i<s.length()){
+            switch(s.charAt(i)){
+                case '(':
+                    push(stk, '(');
+                    break;
+                case ')':
+                    if(pop(stk)!='('){
+                        flag=false;
+                        return flag;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            i++;
+        }
+        return flag;
+    }
+    public void push(char[] stk,char op){
+        head++;
+        System.out.println(head);
+        stk[head]=op;
+    }
+    public char pop(char[] stk){
+        head--;
+        System.out.println(head);
+        return '(';
+    }
+}
