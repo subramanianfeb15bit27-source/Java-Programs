@@ -1,0 +1,49 @@
+//heap sort:  (DELETION: top down, insertion: bottom up)
+
+class Solution {
+    public void sortColors(int[] nums) {
+        hsort(nums);
+    }
+    public void hsort(int[] arr){
+        int j,n=0,temp;
+        for(int i=1; i<arr.length; i++){
+            j=i;
+            while(j>0 && arr[(j-1)/2]<arr[j]){
+                    temp=arr[(j-1)/2];
+                    arr[(j-1)/2]=arr[j];
+                    arr[j]=temp;
+                    j=(j-1)/2;  
+            }
+        }
+        for(int i=0; i<arr.length; i++){
+            temp=arr[arr.length-i-1];
+            arr[arr.length-i-1]=arr[0];
+            arr[0]=temp;
+            j=0;
+            
+            int heapSize = arr.length - i - 1;
+
+            while (j*2 + 1 < heapSize) { //chek if atleast the first child exist
+                int left = j*2 + 1;
+                int right = j*2 + 2;
+                int largest = j;
+
+                if (left < heapSize && arr[left] > arr[largest]) { //if the left child exist and it is greater than the current node, then choose it as the largest child
+                    largest = left;
+                }
+
+                if (right < heapSize && arr[right] > arr[largest]) {// check if the right child exist and it is greater than current largest, then choose it as the largest child
+                    largest = right;
+                }
+
+                if (largest == j) break; // if both the chileren are not greater than the parent, then the parent is at it's correct postion, so stop the percolate down operation.
+
+                temp = arr[j];
+                arr[j] = arr[largest];
+                arr[largest] = temp;
+
+                j = largest;
+            }
+        }
+    }
+}
